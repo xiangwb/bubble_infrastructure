@@ -1,0 +1,30 @@
+version: '3'
+
+networks:
+  bubble:
+    driver: bridge
+
+volumes:
+  acme.json: {}
+
+services:
+  traefik:
+    build:
+      context: ./traefik
+      dockerfile: Dockerfile
+    ports:
+      - "0.0.0.0:80:80"
+      - "0.0.0.0:8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - acme.json:/acme.json
+    restart: on-failure
+    networks:
+      - bubble
+
+  redis:
+    image: redis:3.2
+    container_name: apw_redis
+    restart: on-failure
+    networks:
+      - bubble

@@ -1,0 +1,46 @@
+logLevel = "DEBUG"
+defaultEntryPoints = ["http",]
+
+# Entrypoints, http and https
+[entryPoints]
+  [entryPoints.http]
+    address = ":80"
+
+
+[api]
+    dashboard = true
+    insecure = true
+    debug = true
+
+[providers]
+  providersThrottleDuration = 10
+  [providers.docker]
+    watch = true
+    endpoint = "unix:///var/run/docker.sock"
+    exposedByDefault = false
+    network = "apw_apw"
+    useBindPortIP = true
+
+
+[http]
+  [http.services]
+    [http.services.Service01]
+      [http.services.Service01.loadBalancer]
+        passHostHeader = true
+        [[http.services.Service01.loadBalancer.servers]]
+          url = "http://django:5000"
+    [http.services.Service02]
+      [http.services.Service02.loadBalancer]
+        passHostHeader = true
+        [[http.services.Service02.loadBalancer.servers]]
+          url = "http://django:5001"
+
+  [http.routers]
+    [http.routers.Router0]
+      entryPoints = ["http",]
+      service = "Service01"
+    [http.routers.Router1]
+      entryPoints = ["http",]
+      service = "Service02"
+
+
