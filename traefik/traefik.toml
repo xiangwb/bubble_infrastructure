@@ -23,7 +23,7 @@ defaultEntryPoints = ["http",]
     watch = true
     endpoint = "unix:///var/run/docker.sock"
     exposedByDefault = false
-    network = "bubble"
+    network = "bubble_infrastructure_bubble"
     useBindPortIP = true
 
 
