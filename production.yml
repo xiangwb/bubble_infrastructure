@@ -27,6 +27,6 @@ services:
     container_name: bubble_redis
 #    restart: on-failure
     ports:
-    - "0.0.0.0:6379:6379"
+    - "0.0.0.0:6378:6379"
     networks:
       - bubble
