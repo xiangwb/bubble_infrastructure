@@ -20,11 +20,10 @@ defaultEntryPoints = ["http",]
 [providers]
   providersThrottleDuration = 10
   [providers.docker]
-    watch = true
     endpoint = "unix:///var/run/docker.sock"
     exposedByDefault = false
     network = "bubble_infrastructure_bubble"
-    useBindPortIP = true
+    useBindPortIP = false
 
 
 
